@@ -1,0 +1,53 @@
+<section>
+  <form autocomplete="off" [formGroup]="form">
+    <button mat-raised-button color="accent" (click)="add()">Add new</button>
+
+    <div
+      formArrayName="stores"
+      *ngFor="let p of stores.controls; let i = index">
+      <mat-accordion [formGroupName]="i">
+        <mat-expansion-panel
+          [expanded]="true"
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h3>{{ 'Nova Modalidade' }}</h3>
+            </mat-panel-title>
+
+            <mat-panel-description>
+              <div class="wrapper-title">
+                <div class="mat-column-icon-delete">
+                  <mat-icon title="Excluir" (click)="remove(i)"
+                    >delete</mat-icon
+                  >
+                </div>
+              </div>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Modalidade</mat-label>
+            <mat-select formControlName="modalityId">
+              <mat-option *ngFor="let u of listModality" [value]="u.id">
+                {{ u.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Código da Loja</mat-label>
+            <input matInput placeholder="00-00" formControlName="storeCode" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Código do caixa</mat-label>
+            <input matInput placeholder="99-99" formControlName="cashierCode" />
+          </mat-form-field>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </form>
+</section>
+
+<pre>{{ form.value | json }}</pre>
