@@ -5,7 +5,7 @@ import { Store } from '../interfaces/store';
 @Component({
   selector: 'app-form-array-test',
   templateUrl: './form-array-test.component.html',
-  styleUrls: ['./form-array-test.component.css'],
+  styleUrls: ['./form-array-test.component.scss'],
 })
 export class FormArrayTestComponent implements OnInit {
   form!: FormGroup;
@@ -37,6 +37,9 @@ export class FormArrayTestComponent implements OnInit {
     });
   }
 
+  /**
+   * Simulando o JSON de retorno da minha api, peguei e mockei o JSON da mesma forma que vem do back-end
+   */
   loadValuesForm(): void {
     this.dataStores = [
       {
@@ -211,7 +214,7 @@ export class FormArrayTestComponent implements OnInit {
   add(): void {
     this.stores.push(
       this.fb.group({
-        storeId: this.storeId,
+        storeId: this.storeId, // pegarei o storeId da rota
         modalityId: [null, Validators.required],
         storeCode: [''],
         cashierCode: [''],

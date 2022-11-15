@@ -1,8 +1,7 @@
-<section>
-  <form autocomplete="off" [formGroup]="form">
-    <button mat-raised-button color="accent" (click)="add()">Add new</button>
-
+<section class="section">
+  <form class="example-container" autocomplete="off" [formGroup]="form">
     <div
+      class="stores"
       formArrayName="stores"
       *ngFor="let p of stores.controls; let i = index">
       <mat-accordion [formGroupName]="i">
@@ -10,7 +9,7 @@
           [expanded]="true"
           (opened)="panelOpenState = true"
           (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
+          <mat-expansion-panel-header class="header">
             <mat-panel-title>
               <h3>{{ 'Nova Modalidade' }}</h3>
             </mat-panel-title>
@@ -26,28 +25,45 @@
             </mat-panel-description>
           </mat-expansion-panel-header>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Modalidade</mat-label>
-            <mat-select formControlName="modalityId">
-              <mat-option *ngFor="let u of listModality" [value]="u.id">
-                {{ u.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Modalidade</mat-label>
+              <mat-select class="form-control" formControlName="modalityId">
+                <mat-option *ngFor="let u of listModality" [value]="u.id">
+                  {{ u.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Código da Loja</mat-label>
-            <input matInput placeholder="00-00" formControlName="storeCode" />
-          </mat-form-field>
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Código da Loja</mat-label>
+              <input
+                class="form-control"
+                matInput
+                placeholder="00-00"
+                formControlName="storeCode" />
+            </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Código do caixa</mat-label>
-            <input matInput placeholder="99-99" formControlName="cashierCode" />
-          </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Código do caixa</mat-label>
+              <input
+                class="form-control"
+                matInput
+                placeholder="99-99"
+                formControlName="cashierCode" />
+            </mat-form-field>
+          </div>
         </mat-expansion-panel>
       </mat-accordion>
+    </div>
+
+    <div class="button-wrapper">
+      <button mat-raised-button color="accent" (click)="add()">Add new</button>
     </div>
   </form>
 </section>
 
+<pre>{{ form.valid | json }}</pre>
 <pre>{{ form.value | json }}</pre>
