@@ -20,6 +20,21 @@ export class FormArrayTestComponent implements OnInit {
     { id: '3fa85f64-5717-4562-b3fc-2c963f66afBB', name: 'Modalidade 3' },
   ];
 
+  listSalesChannel: any[] = [
+    {
+      salesChannelId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+      salesChannelName: 'lista de canais 1',
+      modalityId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+      modalityName: 'modalidade 1',
+    },
+    {
+      salesChannelId: '3fa85f64-5717-4562-b3fc-2c963f66af33',
+      salesChannelName: 'lista de canais 2',
+      modalityId: '3fa85f64-5717-4562-b3fc-2c963f66af33',
+      modalityName: 'modalidade 2',
+    },
+  ];
+
   constructor(private fb: FormBuilder) {}
 
   get stores() {
@@ -27,6 +42,8 @@ export class FormArrayTestComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.listSalesChannel);
+
     this.buildForm();
     this.loadValuesForm();
   }
@@ -181,7 +198,7 @@ export class FormArrayTestComponent implements OnInit {
               {
                 storeModalitySalesChannelId:
                   '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-                salesChannelId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+                salesChannelId: '3fa85f64-5717-4562-b3fc-2c963f66af33',
                 salesChannelName: 'string',
               },
             ],
@@ -198,6 +215,7 @@ export class FormArrayTestComponent implements OnInit {
           storeCode: item.storeCode,
           cashierCode: item.cashierCode,
           modalityId: item.modality.id,
+          salesChannelId: item.salesChannel.map(item => item.salesChannelId),
         };
       });
     });
@@ -218,6 +236,7 @@ export class FormArrayTestComponent implements OnInit {
         modalityId: [null, Validators.required],
         storeCode: [''],
         cashierCode: [''],
+        salesChannelId: [null],
       })
     );
   }

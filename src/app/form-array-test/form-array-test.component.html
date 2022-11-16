@@ -55,6 +55,22 @@
                 formControlName="cashierCode" />
             </mat-form-field>
           </div>
+
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Canais de venda</mat-label>
+              <mat-select
+                class="form-control"
+                formControlName="salesChannelId"
+                multiple>
+                <mat-option
+                  *ngFor="let s of listSalesChannel"
+                  [value]="s.salesChannelId">
+                  {{ s.salesChannelName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </mat-expansion-panel>
       </mat-accordion>
     </div>
