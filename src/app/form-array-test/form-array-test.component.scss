@@ -5,7 +5,19 @@
   padding: 30px;
 
   form {
-    width: 465px
+    width: 640px;
+
+    .myformArray {
+      border: 1px solid #ababab;
+      margin: 10px;
+      padding: 10px;
+
+      .content-form {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px;
+      }
+    }
   }
 
   .mat-accordion>.mat-expansion-panel-spacing {
@@ -21,7 +33,20 @@
     justify-content: center;
   }
 
-  .example-container .mat-form-field+.mat-form-field {
-    margin-left: 8px;
+  .dflex {
+    display: flex;
+    gap: 8px;
+  }
+
+  .width-100 {
+    width: 100%;
+  }
+
+  .width-50 {
+    width: 50%;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0.25em 8px !important;
   }
 }
