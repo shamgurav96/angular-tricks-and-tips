@@ -24,7 +24,10 @@
 
             <ng-container [formGroupName]="i">
               <div class="dflex">
-                <mat-form-field appearance="outline" class="width-100">
+                <mat-form-field
+                  formGroupName="storeModality"
+                  appearance="outline"
+                  class="width-100">
                   <mat-label>Modalidade</mat-label>
                   <mat-select class="form-control" formControlName="modalityId">
                     <mat-option *ngFor="let u of listModality" [value]="u.id">
@@ -34,24 +37,36 @@
                 </mat-form-field>
               </div>
 
-              <div class="dflex">
-                <mat-form-field appearance="outline" class="width-100">
-                  <mat-label>Canais de venda</mat-label>
-                  <mat-select
-                    class="form-control"
-                    formControlName="salesChannelId"
-                    multiple>
-                    <mat-option
-                      *ngFor="let s of listSalesChannel"
-                      [value]="s.salesChannelId">
-                      {{ s.salesChannelName }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
+              <!-- Canais de Venda -->
+              <div class="dflex" formArrayName="salesChannel">
+                <ng-container
+                  *ngFor="
+                    let day of getSalesChannelFormArray(control).controls;
+                    let key = index
+                  ">
+                  <ng-container [formGroupName]="key">
+                    <mat-form-field appearance="outline" class="width-100">
+                      <mat-label>Canais de venda</mat-label>
+                      <mat-select
+                        class="form-control"
+                        multiple
+                        formControlName="salesChannelId">
+                        <mat-option
+                          *ngFor="let s of listSalesChannel"
+                          [value]="s.salesChannelId">
+                          {{ s.salesChannelName }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </ng-container>
+                </ng-container>
               </div>
 
               <div class="dflex">
-                <mat-form-field appearance="outline" class="width-50">
+                <mat-form-field
+                  formGroupName="storeModality"
+                  appearance="outline"
+                  class="width-50">
                   <mat-label>Código da Loja</mat-label>
                   <input
                     class="form-control"
@@ -60,7 +75,10 @@
                     formControlName="storeCode" />
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="width-50">
+                <mat-form-field
+                  formGroupName="storeModality"
+                  appearance="outline"
+                  class="width-50">
                   <mat-label>Código do caixa</mat-label>
                   <input
                     class="form-control"
@@ -69,6 +87,45 @@
                     formControlName="cashierCode" />
                 </mat-form-field>
               </div>
+
+              <!-- Dias da semana -->
+              <div class="dflex" formArrayName="openingHours">
+                <ng-container
+                  *ngFor="
+                    let day of getOpeningHoursFormArray(control).controls;
+                    let key = index
+                  ">
+                  <ng-container [formGroupName]="key">
+                    <mat-form-field appearance="outline" class="width-50">
+                      <mat-label>Código da Loja</mat-label>
+                      <input
+                        class="form-control"
+                        matInput
+                        placeholder="00-00"
+                        formControlName="initialTime" />
+                    </mat-form-field>
+                  </ng-container>
+                </ng-container>
+              </div>
+
+              <!-- <div
+                class="dflex"
+                formArrayName="openingHours"
+                *ngFor="
+                  let day of control.get('openingHours');
+                  let key = index
+                ">
+                <ng-container [formGroupName]="key">
+                  <mat-form-field appearance="outline" class="width-50">
+                    <mat-label>AAAA</mat-label>
+                    <input
+                      class="form-control"
+                      matInput
+                      placeholder="00-00"
+                      formControlName="dayWeek" />
+                  </mat-form-field>
+                </ng-container>
+              </div> -->
             </ng-container>
           </div>
         </ng-container>
@@ -79,7 +136,7 @@
   </mat-accordion>
 </section>
 
-<img src="assets/screenshot.png" alt="exemple image" width="1000" />
+<!-- <img src="assets/screenshot.png" alt="exemple image" width="1000" /> -->
 
 <pre>{{ form.valid | json }}</pre>
 <pre>{{ form.value | json }}</pre>

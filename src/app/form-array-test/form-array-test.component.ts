@@ -7,7 +7,7 @@ import { Store } from '../interfaces/store';
   templateUrl: './form-array-test.component.html',
   styleUrls: ['./form-array-test.component.scss'],
 })
-export class FormArrayTestComponent {
+export class FormArrayTestComponent implements OnInit {
   form: FormGroup;
 
   panelOpenState = false;
@@ -114,16 +114,30 @@ export class FormArrayTestComponent {
     this.form = this.formBuilder.group({
       stores: this.formBuilder.array([])
     });
+  }
 
-    // this.dataStores.map((item) => item.storeModalitys.forEach(() => {
-    //   this.addStoreModalitys();
-    // }));
+  ngOnInit(): void {
+    this.dataStores.map((item) => item.storeModalitys.forEach(() => {
+      this.add();
+    }));
 
-    // this.stores.patchValue(this.dataStores);
+    console.log(this.dataStores);
+
+    this.form.patchValue(this.dataStores);
+
+    console.log('FORM', this.form.value);
   }
 
   get getMyFormArray(): FormArray {
     return this.form.get('stores') as FormArray;
+  }
+
+  getOpeningHoursFormArray(form: any): FormArray {
+    return form.get('openingHours') as FormArray
+  }
+
+  getSalesChannelFormArray(form: any): FormArray {
+    return form.get('salesChannel') as FormArray
   }
 
   add() {
@@ -132,24 +146,26 @@ export class FormArrayTestComponent {
 
   getModalityForGroup(): FormGroup {
     return this.formBuilder.group({
-      id: this.formBuilder.control(this.getMyFormArray.controls.length + 1),
+      id: this.getMyFormArray.controls.length + 1,
       storeModality: this.formBuilder.group({
-        storeId: this.formBuilder.control('', Validators.compose([Validators.required])),
-        modalityId: this.formBuilder.control('', Validators.compose([Validators.required])),
-        storeCode: this.formBuilder.control(''),
-        cashierCode: this.formBuilder.control('')
+        storeId: ['', Validators.required],
+        modalityId: ['', Validators.required],
+        storeCode: [''],
+        cashierCode: [''],
       }),
       openingHours: this.formBuilder.array([
-        this.formBuilder.group({
-          dayWeek: this.formBuilder.control(''),
-          initialTime: this.formBuilder.control(''),
-          endTime: this.formBuilder.control(''),
-        })
+        this.formBuilder.group(
+          {
+            dayWeek: 1,
+            initialTime: [''],
+            endTime: [''],
+          }
+        )
       ]),
       salesChannel: this.formBuilder.array([
         this.formBuilder.group({
-          salesChannelId: this.formBuilder.control(''),
-          token: this.formBuilder.control(''),
+          salesChannelId: [''],
+          token: [''],
         })
       ]),
     })
