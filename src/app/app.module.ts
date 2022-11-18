@@ -7,9 +7,10 @@ import { FormArrayTestComponent } from './form-array-test/form-array-test.compon
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalTokenComponent } from './modal-token/modal-token.component';
 
 @NgModule({
-  declarations: [AppComponent, FormArrayTestComponent],
+  declarations: [AppComponent, FormArrayTestComponent, ModalTokenComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

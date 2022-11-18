@@ -53,7 +53,8 @@
                         formControlName="salesChannelId">
                         <mat-option
                           *ngFor="let s of listSalesChannel"
-                          [value]="s.salesChannelId">
+                          [value]="s.salesChannelId"
+                          (onSelectionChange)="selectedChannels($event, i)">
                           {{ s.salesChannelName }}
                         </mat-option>
                       </mat-select>
@@ -107,25 +108,6 @@
                   </ng-container>
                 </ng-container>
               </div>
-
-              <!-- <div
-                class="dflex"
-                formArrayName="openingHours"
-                *ngFor="
-                  let day of control.get('openingHours');
-                  let key = index
-                ">
-                <ng-container [formGroupName]="key">
-                  <mat-form-field appearance="outline" class="width-50">
-                    <mat-label>AAAA</mat-label>
-                    <input
-                      class="form-control"
-                      matInput
-                      placeholder="00-00"
-                      formControlName="dayWeek" />
-                  </mat-form-field>
-                </ng-container>
-              </div> -->
             </ng-container>
           </div>
         </ng-container>

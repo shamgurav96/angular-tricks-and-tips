@@ -1,5 +1,13 @@
+import { ModalTokenComponent } from './../modal-token/modal-token.component';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '../interfaces/store';
 
 @Component({
@@ -12,6 +20,8 @@ export class FormArrayTestComponent implements OnInit {
 
   panelOpenState = false;
   storeId!: '123123xxx-123123-xxxx';
+  idRappi = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
+  idIfood = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
 
   listModality: any[] = [
     { id: '3fa85f64-5717-4562-b3fc-2c963f66afAA', name: 'Modalidade 1' },
@@ -110,18 +120,18 @@ export class FormArrayTestComponent implements OnInit {
     },
   ];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private matDialog: MatDialog) {
     this.form = this.formBuilder.group({
-      stores: this.formBuilder.array([])
+      stores: this.formBuilder.array([]),
     });
   }
 
   ngOnInit(): void {
-    this.dataStores.map((item) => item.storeModalitys.forEach(() => {
-      this.add();
-    }));
-
-    console.log(this.dataStores);
+    this.dataStores.map(item =>
+      item.storeModalitys.forEach(() => {
+        this.add();
+      })
+    );
 
     this.form.patchValue(this.dataStores);
 
@@ -133,11 +143,36 @@ export class FormArrayTestComponent implements OnInit {
   }
 
   getOpeningHoursFormArray(form: any): FormArray {
-    return form.get('openingHours') as FormArray
+    return form.get('openingHours') as FormArray;
   }
 
   getSalesChannelFormArray(form: any): FormArray {
-    return form.get('salesChannel') as FormArray
+    return form.get('salesChannel') as FormArray;
+  }
+
+  selectedChannels(event: any, index: number): void {
+    const value = event.source.value;
+    const isSelected = event.source.selected;
+    const canal = this.idIfood ? 'iFood' : 'Rappi';
+
+    // Abrir modal para incluir token
+    if ((isSelected && value === this.idIfood) || (isSelected && value === this.idRappi)) {
+      this.matDialog
+        .open(ModalTokenComponent, {
+          width: '400px',
+          data: {
+            title: `Insira o Token para o ${canal}`,
+          },
+        })
+        .afterClosed()
+        .subscribe(value => {
+          if (value) {
+            console.log('Com Token:', value);
+          } else {
+            console.log('Sem Token:', value);
+          }
+        });
+    }
   }
 
   add() {
@@ -154,21 +189,19 @@ export class FormArrayTestComponent implements OnInit {
         cashierCode: [''],
       }),
       openingHours: this.formBuilder.array([
-        this.formBuilder.group(
-          {
-            dayWeek: 1,
-            initialTime: [''],
-            endTime: [''],
-          }
-        )
+        this.formBuilder.group({
+          dayWeek: 1,
+          initialTime: [''],
+          endTime: [''],
+        }),
       ]),
       salesChannel: this.formBuilder.array([
         this.formBuilder.group({
           salesChannelId: [''],
           token: [''],
-        })
+        }),
       ]),
-    })
+    });
   }
 
   remove(index: number): void {

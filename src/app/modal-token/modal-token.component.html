@@ -1,0 +1,17 @@
+<div class="modal">
+  <div class="body">
+    <p class="content">{{ data.title }}</p>
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="width-100">
+        <mat-label>Token</mat-label>
+        <input matInput [(ngModel)]="token" name="token" id="token" />
+      </mat-form-field>
+    </div>
+
+    <div class="buttons">
+      <button mat-flat-button (click)="onAction(false)">Cancelar</button>
+      <button mat-flat-button (click)="onAction(true)">Confirmar</button>
+    </div>
+  </div>
+</div>
