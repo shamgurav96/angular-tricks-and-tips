@@ -177,6 +177,13 @@ export class FormArrayTestComponent implements OnInit {
 
   add() {
     this.getMyFormArray.push(this.getModalityForGroup());
+    let formData = this.form.value ;
+    console.log('FORM Values', formData);
+    console.log('modalityId', formData.stores[0].storeModality.modalityId)
+    console.log('salesChannelId', formData.stores[0].salesChannel[0].salesChannelId)
+    console.log('storeCode', formData.stores[0].storeModality.storeCode)
+    console.log('cashierCode', formData.stores[0].storeModality.cashierCode)
+    console.log('initialTime', formData.stores[0].openingHours[0].initialTime)
   }
 
   getModalityForGroup(): FormGroup {
