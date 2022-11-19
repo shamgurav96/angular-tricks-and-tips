@@ -49,7 +49,7 @@
                       <mat-label>Canais de venda</mat-label>
                       <mat-select
                         class="form-control"
-                        
+                        [multiple]="true"
                         formControlName="salesChannelId">
                         <mat-option
                           *ngFor="let s of listSalesChannel"

@@ -155,9 +155,9 @@ export class FormArrayTestComponent implements OnInit {
           ],
           salesChannel: [
             {
-              salesChannelId: this.listSalesChannel[0].salesChannelId,
+              salesChannelId: [this.listSalesChannel[0].salesChannelId,this.listSalesChannel[1].salesChannelId],
               token: '22',
-            },
+            }
           ],
         },
       ],
