@@ -132,9 +132,37 @@ export class FormArrayTestComponent implements OnInit {
         this.add();
       })
     );
+    this.patchValues();
+  }
 
-    this.form.patchValue(this.dataStores);
-
+  patchValues() {
+    let data = {
+      stores: [
+        {
+          id: 1,
+          storeModality: {
+            storeId: this.dataStores[0].storeId,
+            modalityId: this.listModality[0].id,
+            storeCode: this.dataStores[0].storeModalitys[0].storeCode,
+            cashierCode: this.dataStores[0].storeModalitys[0].cashierCode,
+          },
+          openingHours: [
+            {
+              dayWeek: 1,
+              initialTime: '00:01',
+              endTime: '00:59',
+            },
+          ],
+          salesChannel: [
+            {
+              salesChannelId: this.listSalesChannel[0].salesChannelId,
+              token: '22',
+            },
+          ],
+        },
+      ],
+    };
+    this.form.patchValue(data);
     console.log('FORM', this.form.value);
   }
 
@@ -156,7 +184,10 @@ export class FormArrayTestComponent implements OnInit {
     const canal = this.idIfood ? 'iFood' : 'Rappi';
 
     // Abrir modal para incluir token
-    if ((isSelected && value === this.idIfood) || (isSelected && value === this.idRappi)) {
+    if (
+      (isSelected && value === this.idIfood) ||
+      (isSelected && value === this.idRappi)
+    ) {
       this.matDialog
         .open(ModalTokenComponent, {
           width: '400px',
@@ -177,13 +208,7 @@ export class FormArrayTestComponent implements OnInit {
 
   add() {
     this.getMyFormArray.push(this.getModalityForGroup());
-    let formData = this.form.value ;
-    console.log('FORM Values', formData);
-    console.log('modalityId', formData.stores[0].storeModality.modalityId)
-    console.log('salesChannelId', formData.stores[0].salesChannel[0].salesChannelId)
-    console.log('storeCode', formData.stores[0].storeModality.storeCode)
-    console.log('cashierCode', formData.stores[0].storeModality.cashierCode)
-    console.log('initialTime', formData.stores[0].openingHours[0].initialTime)
+    let formData = this.form.value;
   }
 
   getModalityForGroup(): FormGroup {

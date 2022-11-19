@@ -49,7 +49,7 @@
                       <mat-label>Canais de venda</mat-label>
                       <mat-select
                         class="form-control"
-                        multiple
+                        
                         formControlName="salesChannelId">
                         <mat-option
                           *ngFor="let s of listSalesChannel"
@@ -112,7 +112,7 @@
           </div>
         </ng-container>
       </form>
-
+      <button type="button" (click)="patchValues()">Patch Values</button>
       <button type="button" (click)="add()">Adicionar modalidade</button>
     </mat-expansion-panel>
   </mat-accordion>
